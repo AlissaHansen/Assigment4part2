@@ -17,6 +17,14 @@ public class DataService : IDataService
         return db.Categories.FirstOrDefault(x => x.Id == categoryId);
     }
 
+    public IList<Category> GetCategoriesByName(string searchTerm)
+    {
+        var db = new NorthwindContext();
+        return db.Categories
+            .Where(x => x.Name.Contains(searchTerm))
+            .ToList();
+    }
+
     public bool DeleteCategory(Category category)
     {
         return DeleteCategory(category.Id);

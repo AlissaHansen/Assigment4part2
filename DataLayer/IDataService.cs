@@ -4,6 +4,8 @@ public interface IDataService
 {
     IList<Category> GetCategories();
     Category? GetCategory(int categoryId);
+    IList<Category> GetCategoriesByName(string searchTerm);
+    Category? CreateCategory(Category categoryToCreate);
     bool DeleteCategory(Category category);
     bool DeleteCategory(int categoryId);
     Category CreateCategory(string name, string description);

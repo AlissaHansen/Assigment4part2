@@ -9,18 +9,28 @@ namespace WebServer.Controllers;
 [ApiController]
 public class CategoriesController : ControllerBase
 {
-    DataService ds = new DataService();
+    private readonly IDataService _dataService;
+    public CategoriesController(IDataService dataService)
+    {
+        _dataService = dataService;
+    }
         
     [HttpGet]
-    public IActionResult GetCategories()
+    public IActionResult GetCategories(string? name = null)
     {
-        return Ok(ds.GetCategories());
+        if (name != null)
+        {
+            var categories =(_dataService.GetCategoriesByName(name));
+            return Ok(categories);
+        }
+        
+        return Ok(_dataService.GetCategories());
     }
 
     [HttpGet("{id}")]
     public IActionResult GetCategory(int id)
     {
-        var category = ds.GetCategory((id));
+        var category = _dataService.GetCategory((id));
         if (category == null)
         {
             return NotFound();
@@ -38,7 +48,7 @@ public class CategoriesController : ControllerBase
             Description = model.Description
         };
         
-        ds.CreateCategory(category);
+        _dataService.CreateCategory(category);
         return Ok(category);
     }
     
