@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer;
 
-public class DataService
+public class DataService : IDataService
 {
     public IList<Category> GetCategories()
     {
