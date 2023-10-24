@@ -50,6 +50,21 @@ public class DataService : IDataService
         db.SaveChanges();
         return category;
     }
+    
+    public Category CreateCategory(Category categoryToCreate)
+    {
+        var db = new NorthwindContext();
+        var id = db.Categories.Max(x => x.Id) + 1;
+        var category = new Category
+        {
+            Id = id,
+            Name = categoryToCreate.Name,
+            Description = categoryToCreate.Description
+        };
+        db.Add(category);
+        db.SaveChanges();
+        return category;
+    }
 
     public bool UpdateCategory(int Id, string name, string description)
     {
