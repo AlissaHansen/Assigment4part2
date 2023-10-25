@@ -49,7 +49,6 @@ public class CategoriesController : ControllerBase
         };
         
         _dataService.CreateCategory(category);
-        return Ok(category);
+        return Created("success", category);
     }
-    
 }
